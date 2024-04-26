@@ -1,14 +1,34 @@
 package com.fullstack.customer;
 
-import java.util.Objects;
+import jakarta.persistence.*;
 
+import java.util.Objects;
+@Entity
 public class Customer {
-    private int id;
+    @Id
+    @SequenceGenerator(
+            name="customer-id-sequence",
+            sequenceName = "customer-id-sequence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "customer-id-sequence"
+    )
+    private   Integer id;
+    @Column(
+            nullable = false
+    )
     private String name;
+    @Column(
+            nullable = false
+    )
     private String Email;
+    @Column(
+            nullable = false
+    )
     private int age;
 
-    public Customer(int id, String name, String email, int age) {
+    public Customer(Integer id, String name, String email, int age) {
         this.id = id;
         this.name = name;
         Email = email;
@@ -18,11 +38,17 @@ public class Customer {
     public Customer() {
     }
 
-    public int getId() {
+    public Customer(String name, String email, int age) {
+        this.name = name;
+        Email = email;
+        this.age = age;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

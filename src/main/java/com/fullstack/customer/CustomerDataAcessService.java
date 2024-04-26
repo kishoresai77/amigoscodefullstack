@@ -1,11 +1,15 @@
 package com.fullstack.customer;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
+import java.util.stream.Stream;
+@Repository("list")
 public class CustomerDataAcessService implements CustomerDao{
 
-    static List<Customer> customers;
+   static List<Customer> customers;
     static {
              customers = new ArrayList<Customer>();
              Customer sai = new Customer(1,"sai","vallapu@",33);
@@ -16,5 +20,10 @@ public class CustomerDataAcessService implements CustomerDao{
     @Override
     public List<Customer> selectAllCustomer() {
         return customers;
+    }
+
+    @Override
+    public Optional<Customer> selectById(Integer id) {
+      return  customers.stream().filter(c -> c.getId().equals(id)).findFirst();
     }
 }
