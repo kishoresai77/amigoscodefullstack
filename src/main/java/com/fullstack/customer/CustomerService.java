@@ -1,7 +1,8 @@
 package com.fullstack.customer;
 
-import com.fullstack.customer.exception.ResourceDuplicationexception;
-import com.fullstack.customer.exception.ResourceNotFound;
+import com.fullstack.exception.RequestValidationException;
+import com.fullstack.exception.ResourceDuplicationexception;
+import com.fullstack.exception.ResourceNotFound;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,30 @@ public class CustomerService {
             throw  new ResourceNotFound("Customer with id [%s] not found".formatted(id));
         }
         customerDao.deleteCustomer(id);
+    }
+    public void updateCustomer(Integer id, CustomerUpdateRequest updateRequest){
+        Customer customer = getCustomerById(id);
+         boolean changes= false;
+
+         if(updateRequest.name() != null && !updateRequest.name().equals(customer.getName())){
+             customer.setName(updateRequest.name());
+             changes=true;
+         }
+        if(updateRequest.age() != null && !updateRequest.age().equals(customer.getAge())){
+            customer.setAge(updateRequest.age());
+            changes=true;
+        }
+        if(updateRequest.email() != null && !updateRequest.email().equals(customer.getEmail())){
+            if(customerDao.existCustomerByEmail(updateRequest.email())){
+                throw new ResourceDuplicationexception("Customer with email  already exists");
+            }
+            customer.setEmail(updateRequest.email());
+            changes=true;
+        }
+        if(!changes){
+            throw new RequestValidationException("no data change  found ");
+        }
+        customerDao.updateCustomer(customer);
+
     }
 }
