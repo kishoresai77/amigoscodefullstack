@@ -22,7 +22,7 @@ public class Customer {
     @Column(
             nullable = false
     )
-    private String Email;
+    private String email;
     @Column(
             nullable = false
     )
@@ -31,17 +31,18 @@ public class Customer {
     public Customer(Integer id, String name, String email, int age) {
         this.id = id;
         this.name = name;
-        Email = email;
+        this.email = email;
         this.age = age;
     }
 
-    public Customer() {
-    }
 
     public Customer(String name, String email, int age) {
         this.name = name;
-        Email = email;
+        this.email = email;
         this.age = age;
+    }
+    public Customer(){
+
     }
 
     public Integer getId() {
@@ -61,11 +62,11 @@ public class Customer {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        email = email;
     }
 
     public int getAge() {
@@ -81,11 +82,11 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return id == customer.id && age == customer.age && Objects.equals(name, customer.name) && Objects.equals(Email, customer.Email);
+        return id == customer.id && age == customer.age && Objects.equals(name, customer.name) && Objects.equals(email, customer.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, Email, age);
+        return Objects.hash(id, name, email, age);
     }
 }

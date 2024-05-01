@@ -1,12 +1,11 @@
 package com.fullstack.customer;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("api/v1/customer")
 public class Controllers {
     private final CustomerService customerService;
 
@@ -14,12 +13,22 @@ public class Controllers {
         this.customerService = customerService;
     }
 
-    @GetMapping("")
+
+    @GetMapping()
     public List<Customer> getAllCustomer(){
         return customerService.getAllcustomer();
     }
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public Customer getcustomerByiId(@PathVariable("id") Integer id){
         return customerService.getCustomerById(id);
+    }
+    @PostMapping()
+    public void registerCustomer(@RequestBody CustomerDto register){
+        customerService.insertCustomer(register);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteCustomer(@PathVariable("id") Integer id){
+        customerService.deleteCustomer(id);
     }
 }
