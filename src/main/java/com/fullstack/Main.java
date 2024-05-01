@@ -22,15 +22,15 @@ public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class,args);
     }
-//@Bean
-//    CommandLineRunner runner(CustomerRepository customerRepository){
-//        return args -> {
-//            Customer sai = new Customer( "sai", "vallapu@", 33);
-//            Customer kishore = new Customer( "kishore", "reddy@", 55);
-//            List<Customer> customer = List.of(sai, kishore);
-//            customerRepository.saveAll(customer);
-//        };
-//
-//    }
+@Bean
+    CommandLineRunner runner(CustomerRepository customerRepository){
+        return args -> {
+            Customer sai = new Customer( "sai", "vallapu@", 33);
+            Customer kishore = new Customer( "kishore", "reddy@", 55);
+            List<Customer> customer = List.of(sai, kishore);
+           // customerRepository.saveAll(customer);
+        };
+
+    }
 }
 
