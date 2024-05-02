@@ -2,6 +2,7 @@ package com.fullstack;
 
 import com.fullstack.customer.Customer;
 import com.fullstack.customer.CustomerRepository;
+import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
+import java.util.Random;
 
 @SpringBootApplication
 
@@ -25,10 +27,14 @@ public class Main {
 @Bean
     CommandLineRunner runner(CustomerRepository customerRepository){
         return args -> {
-            Customer sai = new Customer( "sai", "vallapu@", 33);
-            Customer kishore = new Customer( "kishore", "reddy@", 55);
-            List<Customer> customer = List.of(sai, kishore);
-           // customerRepository.saveAll(customer);
+            Faker faker = new Faker();
+            Random random= new Random();
+            Customer customer = new Customer(
+                    faker.name().fullName(),
+                    faker.internet().safeEmailAddress(),
+                    random.nextInt(16,99)
+            );
+            customerRepository.save(customer);
         };
 
     }

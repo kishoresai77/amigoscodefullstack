@@ -2,19 +2,29 @@ package com.fullstack.customer;
 
 import jakarta.persistence.*;
 
+import java.math.BigInteger;
 import java.util.Objects;
 @Entity
+@Table(
+        name="customer",
+        uniqueConstraints = {
+         @UniqueConstraint( name= "customer_email_unique",
+             columnNames = "email")
+}
+)
 public class Customer {
     @Id
     @SequenceGenerator(
-            name="customer-id-sequence",
-            sequenceName = "customer-id-sequence"
+            name="customer-id-seq",
+            sequenceName = "customer-id-seq",
+            allocationSize = 1
+
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "customer-id-sequence"
+            generator = "customer-id-seq"
     )
-    private   Integer id;
+    private Integer id;
     @Column(
             nullable = false
     )
