@@ -2,7 +2,7 @@ package com.fullstack.customer;
 
 import jakarta.persistence.*;
 
-import java.math.BigInteger;
+
 import java.util.Objects;
 @Entity
 @Table(
