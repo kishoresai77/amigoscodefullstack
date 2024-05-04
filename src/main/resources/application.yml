@@ -12,6 +12,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
         show_sql: true
+        logging:
+          level:
+            org.hibernate.SQL: DEBUG
 
 server:
   error:

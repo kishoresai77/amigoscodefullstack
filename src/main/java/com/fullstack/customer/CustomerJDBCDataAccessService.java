@@ -45,7 +45,7 @@ public class CustomerJDBCDataAccessService  implements CustomerDao{
                 customer.getEmail(),
                 customer.getAge()
         );
-        System.out.println("jbdcTemplate.updata = " + result);
+        System.out.println("jbdcTemplate= " + result);
 
     }
 

@@ -3,6 +3,7 @@ package com.fullstack.customer;
 import jakarta.persistence.*;
 
 
+import java.math.BigInteger;
 import java.util.Objects;
 @Entity
 @Table(
@@ -14,17 +15,17 @@ import java.util.Objects;
 )
 public class Customer {
     @Id
-    @SequenceGenerator(
-            name="customer-id-seq",
-            sequenceName = "customer-id-seq",
-            allocationSize = 1
-
+   @SequenceGenerator(
+             name="customer-id-seq",
+            sequenceName = "customer_id_seq",
+           allocationSize = 1
     )
-    @GeneratedValue(
+   @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "customer-id-seq"
     )
-    private Integer id;
+
+    private Long id;
     @Column(
             nullable = false
     )
@@ -38,7 +39,7 @@ public class Customer {
     )
     private int age;
 
-    public Customer(Integer id, String name, String email, int age) {
+    public Customer(Long id, String name, String email, int age) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -55,11 +56,11 @@ public class Customer {
 
     }
 
-    public Integer getId() {
+    public Long    getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long   id) {
         this.id = id;
     }
 
