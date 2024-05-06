@@ -27,7 +27,7 @@ public class CustomerService {
     }
     public void insertCustomer(CustomerDto customerDto){
     if(customerDao.existCustomerByEmail(customerDto.getEmail())){
-        throw new ResourceDuplicationexception("Customer with email [%s] already exists".formatted(customerDto.getEmail()));
+        throw new ResourceDuplicationexception("Customer with email  already exists".formatted(customerDto.getEmail()));
     }
     Customer customer= new Customer(
             customerDto.getName(),
@@ -63,7 +63,7 @@ public class CustomerService {
             changes=true;
         }
         if(!changes){
-            throw new RequestValidationException("no data change  found ");
+            throw new RequestValidationException("no data change  found");
         }
         customerDao.updateCustomer(customer);
 
