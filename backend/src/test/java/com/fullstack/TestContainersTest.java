@@ -9,7 +9,7 @@ import java.util.Locale;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class TestContainersTest  extends AbstractTestContainer{
+public class TestContainersTest extends AbstractTestContainer {
     @Test
     void canStartPostgresDB() {
         assertThat(postgresContainer.isRunning()).isTrue();

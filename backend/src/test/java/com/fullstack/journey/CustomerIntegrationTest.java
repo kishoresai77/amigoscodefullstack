@@ -22,16 +22,16 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class CustomerIntegrationTest {
+    private static final Random random = new Random();
+    private static final String CUSTOMER_URI = "/api/v1/customer";
     @Autowired
     private WebTestClient webTestClient;
-     private  static  final Random random=new Random();
-    private static final String CUSTOMER_URI = "/api/v1/customer";
 
     @Test
     void canRegisterCustomer() {
-        Faker faker=new Faker();
+        Faker faker = new Faker();
         Name fakerName = faker.name();
-        String name=fakerName.fullName();
+        String name = fakerName.fullName();
         String email = fakerName.lastName() + "-" + UUID.randomUUID() + "@amigoscode.com";
         int age = random.nextInt(1, 100);
 
@@ -65,7 +65,7 @@ public class CustomerIntegrationTest {
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
                 .contains(expectedCustomer);
 
-        Long  id = allCustomers.stream()
+        Long id = allCustomers.stream()
                 .filter(customer -> customer.getEmail().equals(email))
                 .map(Customer::getId)
                 .findFirst()
@@ -84,6 +84,7 @@ public class CustomerIntegrationTest {
                 })
                 .isEqualTo(expectedCustomer);
     }
+
     @Test
     void canDeleteCustomer() {
         // create registration request
@@ -144,6 +145,7 @@ public class CustomerIntegrationTest {
                 .expectStatus()
                 .isNotFound();
     }
+
     @Test
     void canUpdateCustomer() {
         // create registration request

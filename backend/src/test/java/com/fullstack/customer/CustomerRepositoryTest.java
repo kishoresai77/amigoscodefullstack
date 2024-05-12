@@ -12,9 +12,10 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class CustomerRepositoryTest  extends AbstractTestContainer {
+class CustomerRepositoryTest extends AbstractTestContainer {
     @Autowired
     private CustomerRepository undertest;
 
@@ -25,28 +26,28 @@ class CustomerRepositoryTest  extends AbstractTestContainer {
     @Test
     void existsCustomerByEmail() {
         String email = faker.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer=new Customer(
+        Customer customer = new Customer(
                 faker.name().fullName(),
                 email,
                 20
         );
         undertest.save(customer);
 
-        boolean actual= undertest.existsCustomerByEmail(email);
+        boolean actual = undertest.existsCustomerByEmail(email);
         assertThat(actual).isTrue();
     }
 
     @Test
     void existsCustomerById() {
         String email = faker.internet().safeEmailAddress() + "-" + UUID.randomUUID();
-        Customer customer=new Customer(
+        Customer customer = new Customer(
                 faker.name().fullName(),
                 email,
                 20
         );
         undertest.save(customer);
 
-        Long  id = undertest.findAll().
+        Long id = undertest.findAll().
                 stream().
                 filter(c -> c.getEmail().equals(email)).
                 map(Customer::getId).findFirst().
@@ -55,16 +56,18 @@ class CustomerRepositoryTest  extends AbstractTestContainer {
         boolean actual = undertest.existsCustomerById(id);
         assertThat(actual).isTrue();
     }
+
     @Test
     void existsCustomerByEmailFailsWhenEmailNotPresent() {
         String email = faker.internet().safeEmailAddress() + "-" + UUID.randomUUID();
 
-        boolean actual= undertest.existsCustomerByEmail(email);
+        boolean actual = undertest.existsCustomerByEmail(email);
         assertThat(actual).isFalse();
     }
+
     @Test
     void existsCustomerByIdFailsWhenIdNotPresent() {
-        Long  id = (long) -1;
+        Long id = (long) -1;
 
         boolean actual = undertest.existsCustomerById(id);
         assertThat(actual).isFalse();

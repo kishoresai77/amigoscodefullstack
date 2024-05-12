@@ -5,8 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository("jdbc")
-public class CustomerJDBCDataAccessService  implements CustomerDao{
+public class CustomerJDBCDataAccessService implements CustomerDao {
     private final JdbcTemplate jdbcTemplate;
     private final CustomerRowMapper customerRowMapper;
 
@@ -17,7 +18,7 @@ public class CustomerJDBCDataAccessService  implements CustomerDao{
 
     @Override
     public List<Customer> selectAllCustomer() {
-        var sql= """
+        var sql = """
                 SELECT  id,name,email,age
                 FROM customer
                 """;
@@ -25,22 +26,22 @@ public class CustomerJDBCDataAccessService  implements CustomerDao{
     }
 
     @Override
-    public Optional selectById(Long  id) {
-        var sql= """
+    public Optional selectById(Long id) {
+        var sql = """
                 SELECT  id,name,email,age
                 FROM customer where id= ?
                 """;
-        return jdbcTemplate.query(sql, customerRowMapper,id).stream().findFirst();
+        return jdbcTemplate.query(sql, customerRowMapper, id).stream().findFirst();
 
     }
 
     @Override
     public void insertCustomer(Customer customer) {
-        var sql= """
+        var sql = """
                 INSERT INTO customer(name,email,age)
                 VALUES(?,?,?)
                 """;
-        int result=jdbcTemplate.update(sql,
+        int result = jdbcTemplate.update(sql,
                 customer.getName(),
                 customer.getEmail(),
                 customer.getAge()
@@ -51,7 +52,7 @@ public class CustomerJDBCDataAccessService  implements CustomerDao{
 
     @Override
     public boolean existCustomerByEmail(String email) {
-        var sql= """
+        var sql = """
                 SELECT  count(id)
                 FROM customer where email= ?
                 """;
@@ -60,19 +61,19 @@ public class CustomerJDBCDataAccessService  implements CustomerDao{
     }
 
     @Override
-    public void deleteCustomer(Long  id) {
-        var sql= """
+    public void deleteCustomer(Long id) {
+        var sql = """
                 DELETE  
                 FROM customer where id= ?
                 """;
         Integer result = jdbcTemplate.update(sql, id);
-        System.out.println("deleted customer by id result: " + result );
+        System.out.println("deleted customer by id result: " + result);
 
     }
 
     @Override
     public boolean existsCustomerById(Long id) {
-        var sql= """
+        var sql = """
                 SELECT  count(id)
                 FROM customer where id= ?
                 """;
@@ -83,31 +84,31 @@ public class CustomerJDBCDataAccessService  implements CustomerDao{
 
     @Override
     public void updateCustomer(Customer update) {
-        if(update.getName()!=null){
-            String sql= """
+        if (update.getName() != null) {
+            String sql = """
                        UPDATE customer SET name=? where id=?
                     """;
-            int result=jdbcTemplate.update(sql,
+            int result = jdbcTemplate.update(sql,
                     update.getName(),
                     update.getId()
             );
             System.out.println("update customer name result: " + result);
         }
-        if(update.getAge()!= 0 ){
-            String sql= """
+        if (update.getAge() != 0) {
+            String sql = """
                        UPDATE customer SET age=? where id=?
                     """;
-            int result=jdbcTemplate.update(sql,
+            int result = jdbcTemplate.update(sql,
                     update.getAge(),
                     update.getId()
             );
             System.out.println("update customer age result: " + result);
         }
-        if(update.getEmail()!=null){
-            String sql= """
+        if (update.getEmail() != null) {
+            String sql = """
                        UPDATE customer SET email=? where id=?
                     """;
-            int result=jdbcTemplate.update(sql,
+            int result = jdbcTemplate.update(sql,
                     update.getEmail(),
                     update.getId()
             );

@@ -6,10 +6,16 @@ import java.util.stream.Stream;
 
 public interface CustomerDao {
     List<Customer> selectAllCustomer();
+
     Optional<Customer> selectById(Long id);
+
     void insertCustomer(Customer customer);
+
     boolean existCustomerByEmail(String email);
-    void deleteCustomer(Long  id);
+
+    void deleteCustomer(Long id);
+
     boolean existsCustomerById(Long id);
+
     void updateCustomer(Customer update);
 }

@@ -25,14 +25,15 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CustomerServiceTest {
     @Mock
-    private   CustomerDao customerDao ;
-    private  CustomerService underTest;
+    private CustomerDao customerDao;
+    private CustomerService underTest;
     private AutoCloseable autoCloseable;
 
     @BeforeEach
     void setUp() {
-         underTest=new CustomerService(customerDao);
+        underTest = new CustomerService(customerDao);
     }
+
     @Test
     void getAllcustomer() {
 
@@ -42,8 +43,8 @@ class CustomerServiceTest {
 
     @Test
     void getCustomerById() {
-        Long  id=10L;
-        Customer customer= new Customer(id,"sai","vallapu@",44);
+        Long id = 10L;
+        Customer customer = new Customer(id, "sai", "vallapu@", 44);
         when(customerDao.selectById(id)).thenReturn(Optional.of(customer));
         Customer actual = underTest.getCustomerById(id);
         assertThat(actual).isEqualTo(customer);
@@ -51,28 +52,29 @@ class CustomerServiceTest {
 
     @Test
     void willthrowWhenGetCustomerReturnEmptyOptional() {
-        Long id= 10L;
+        Long id = 10L;
         when(customerDao.selectById(id)).thenReturn(Optional.empty());
-        assertThatThrownBy(() ->  underTest.getCustomerById(id)).isInstanceOf(ResourceNotFound.class).hasMessage(
+        assertThatThrownBy(() -> underTest.getCustomerById(id)).isInstanceOf(ResourceNotFound.class).hasMessage(
                 "customer with id [%s] not found ".formatted(id)
         );
     }
-     // this method is from chatgpt which is below
-@Test
-public void testGetCustomerById_ResourceNotFound() {
-    Long id = 2L;
 
-    // Mocking behavior of customerDao
-    when(customerDao.selectById(id)).thenReturn(Optional.empty());
+    // this method is from chatgpt which is below
+    @Test
+    public void testGetCustomerById_ResourceNotFound() {
+        Long id = 2L;
 
-    // Calling the method to test
-    Assertions.assertThrows(ResourceNotFound.class, () -> {
-        underTest.getCustomerById(id);
-    });
+        // Mocking behavior of customerDao
+        when(customerDao.selectById(id)).thenReturn(Optional.empty());
 
-    // Verifying that customerDao's selectById method was called with the correct id
-    verify(customerDao).selectById(id);
-}
+        // Calling the method to test
+        Assertions.assertThrows(ResourceNotFound.class, () -> {
+            underTest.getCustomerById(id);
+        });
+
+        // Verifying that customerDao's selectById method was called with the correct id
+        verify(customerDao).selectById(id);
+    }
 
 
     @Test
@@ -82,7 +84,7 @@ public void testGetCustomerById_ResourceNotFound() {
 
         when(customerDao.existCustomerByEmail(email)).thenReturn(false);
 
-        CustomerDto request= new CustomerDto(
+        CustomerDto request = new CustomerDto(
                 "Alex", email, 19
         );
 
@@ -125,7 +127,7 @@ public void testGetCustomerById_ResourceNotFound() {
 
     @Test
     void deleteCustomer() {
-        Long  id = 10L;
+        Long id = 10L;
 
         when(customerDao.existsCustomerById(id)).thenReturn(true);
 
@@ -156,7 +158,7 @@ public void testGetCustomerById_ResourceNotFound() {
     @Test
     void canUpdateAllCustomersProperties() {
         // Given
-        Long  id = 10L;
+        Long id = 10L;
         Customer customer = new Customer(
                 id, "Alex", "alex@gmail.com", 19
         );
@@ -187,7 +189,7 @@ public void testGetCustomerById_ResourceNotFound() {
     @Test
     void canUpdateOnlyCustomerName() {
         // Given
-        Long  id = 10L;
+        Long id = 10L;
         Customer customer = new Customer(
                 id, "Alex", "alex@gmail.com", 19
         );
@@ -214,7 +216,7 @@ public void testGetCustomerById_ResourceNotFound() {
     @Test
     void canUpdateOnlyCustomerEmail() {
         // Given
-        Long  id = 10L;
+        Long id = 10L;
         Customer customer = new Customer(
                 id, "Alex", "alex@gmail.com", 19
         );
@@ -245,7 +247,7 @@ public void testGetCustomerById_ResourceNotFound() {
     @Test
     void canUpdateOnlyCustomerAge() {
         // Given
-        Long  id = 10L;
+        Long id = 10L;
         Customer customer = new Customer(
                 id, "Alex", "alex@gmail.com", 19
         );
@@ -272,7 +274,7 @@ public void testGetCustomerById_ResourceNotFound() {
     @Test
     void willThrowWhenTryingToUpdateCustomerEmailWhenAlreadyTaken() {
         // Given
-        Long  id = 10L;
+        Long id = 10L;
         Customer customer = new Customer(
                 id, "Alex", "alex@gmail.com", 19
         );
@@ -297,7 +299,7 @@ public void testGetCustomerById_ResourceNotFound() {
     @Test
     void willThrowWhenCustomerUpdateHasNoChanges() {
         // Given
-        Long  id = 10L;
+        Long id = 10L;
         Customer customer = new Customer(
                 id, "Alex", "alex@gmail.com", 19
         );

@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 class CustomerRowMapperTest {
 
     @Test
-    void mapRow() throws  SQLException {
+    void mapRow() throws SQLException {
         // Given
         CustomerRowMapper customerRowMapper = new CustomerRowMapper();
 

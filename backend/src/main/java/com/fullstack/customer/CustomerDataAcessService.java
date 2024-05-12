@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-@Repository("list")
-public class CustomerDataAcessService implements CustomerDao{
 
-   static List<Customer> customers;
-//    static {
+@Repository("list")
+public class CustomerDataAcessService implements CustomerDao {
+
+    static List<Customer> customers;
+
+    //    static {
 //             customers = new ArrayList<Customer>();
 //             Customer sai = new Customer(1,"sai","vallapu@",33);
 //             customers.add(sai);
@@ -23,8 +25,8 @@ public class CustomerDataAcessService implements CustomerDao{
     }
 
     @Override
-    public Optional<Customer> selectById(Long  id) {
-      return  customers.stream().filter(c -> c.getId().equals(id)).findFirst();
+    public Optional<Customer> selectById(Long id) {
+        return customers.stream().filter(c -> c.getId().equals(id)).findFirst();
     }
 
     @Override
@@ -39,12 +41,12 @@ public class CustomerDataAcessService implements CustomerDao{
     }
 
     @Override
-    public void deleteCustomer(Long  id) {
+    public void deleteCustomer(Long id) {
 
     }
 
     @Override
-    public boolean existsCustomerById(Long  id) {
+    public boolean existsCustomerById(Long id) {
         return false;
     }
 

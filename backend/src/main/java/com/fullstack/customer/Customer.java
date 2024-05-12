@@ -5,22 +5,23 @@ import jakarta.persistence.*;
 
 import java.math.BigInteger;
 import java.util.Objects;
+
 @Entity
 @Table(
-        name="customer",
+        name = "customer",
         uniqueConstraints = {
-         @UniqueConstraint( name= "customer_email_unique",
-             columnNames = "email")
-}
+                @UniqueConstraint(name = "customer_email_unique",
+                        columnNames = "email")
+        }
 )
 public class Customer {
     @Id
-   @SequenceGenerator(
-             name="customer-id-seq",
+    @SequenceGenerator(
+            name = "customer-id-seq",
             sequenceName = "customer_id_seq",
-           allocationSize = 1
+            allocationSize = 1
     )
-   @GeneratedValue(
+    @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "customer-id-seq"
     )
@@ -52,15 +53,16 @@ public class Customer {
         this.email = email;
         this.age = age;
     }
-    public Customer(){
+
+    public Customer() {
 
     }
 
-    public Long    getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long   id) {
+    public void setId(long id) {
         this.id = id;
     }
 

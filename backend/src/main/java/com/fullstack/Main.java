@@ -22,17 +22,18 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        SpringApplication.run(Main.class,args);
+        SpringApplication.run(Main.class, args);
     }
-@Bean
-    CommandLineRunner runner(CustomerRepository customerRepository){
+
+    @Bean
+    CommandLineRunner runner(CustomerRepository customerRepository) {
         return args -> {
             Faker faker = new Faker();
-            Random random= new Random();
+            Random random = new Random();
             Customer customer = new Customer(
                     faker.name().fullName(),
                     faker.internet().safeEmailAddress(),
-                    random.nextInt(16,99)
+                    random.nextInt(16, 99)
             );
             customerRepository.save(customer);
         };

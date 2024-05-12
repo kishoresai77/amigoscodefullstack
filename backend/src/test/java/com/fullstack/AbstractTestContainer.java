@@ -14,9 +14,16 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import javax.sql.DataSource;
 
 @Testcontainers
-public abstract class  AbstractTestContainer {
+public abstract class AbstractTestContainer {
+    @Container
+    protected static final PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>("postgres:latest").
+            withDatabaseName("amigoscode-dao-unit-test")
+            .withUsername("postgres")
+            .withPassword("postgres");
+    protected static final Faker faker = new Faker();
+
     @BeforeAll
-    static  void beforeall(){
+    static void beforeall() {
         Flyway flyway = Flyway.configure().dataSource(
                 postgresContainer.getJdbcUrl(),
                 postgresContainer.getUsername(),
@@ -24,11 +31,6 @@ public abstract class  AbstractTestContainer {
         ).load();
         flyway.migrate();
     }
-    @Container
-    protected static final PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer<>("postgres:latest" ).
-            withDatabaseName("amigoscode-dao-unit-test" )
-            .withUsername("postgres" )
-            .withPassword("postgres" );
 
     @DynamicPropertySource
     private static void registerDataSourceProperty(DynamicPropertyRegistry registry) {
@@ -48,18 +50,17 @@ public abstract class  AbstractTestContainer {
     }
 
     private static DataSource batasource() {
-          return DataSourceBuilder.create().
-                 driverClassName(postgresContainer.getDriverClassName()).
-                 url(postgresContainer.getJdbcUrl()).
-                 username(postgresContainer.getUsername())
-                  .password(postgresContainer.getPassword())
-                 .build();
+        return DataSourceBuilder.create().
+                driverClassName(postgresContainer.getDriverClassName()).
+                url(postgresContainer.getJdbcUrl()).
+                username(postgresContainer.getUsername())
+                .password(postgresContainer.getPassword())
+                .build();
     }
 
- protected static JdbcTemplate getJdbcTemplate() {
+    protected static JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(batasource());
- }
- protected  static final Faker faker= new Faker();
+    }
 
 
 }
