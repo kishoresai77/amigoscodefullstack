@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "customer-api",
-      "image": "saikishorevallapu/demo.fullstack:0.0.1-SNAPSHOT",
+      "image": "saikishorevallapu/demo.fullstack:13.05.2024.06.02.39",
       "essential": true,
       "memory": 512,
       "portMappings": [
