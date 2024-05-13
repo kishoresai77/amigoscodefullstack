@@ -17,7 +17,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<docker.username>saikishorevallapu</docker.username>
-		<docker.image.name>customer-api</docker.image.name>
+		<docker.image.name>demo.fullstack</docker.image.name>
 		<docker.image.tag/>
 
 	</properties>
